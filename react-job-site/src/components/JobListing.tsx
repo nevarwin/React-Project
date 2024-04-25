@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { job } from "../model/job";
+import { IconContext } from "react-icons";
+import { FaMapMarker } from "react-icons/fa";
 
 interface JobListingProp {
   job: job;
@@ -38,8 +40,10 @@ const JobListing: React.FC<JobListingProp> = ({ job }) => {
 
         <div className="flex flex-col justify-between mb-4 lg:flex-row sm:flex-column">
           <div className="mb-3 text-orange-700">
-            <i className="text-lg fa-solid fa-location-dot"></i>
-            {job.location}
+            <IconContext.Provider value={{ className: "inline text-lg" }}>
+              <FaMapMarker />
+              {job.location}
+            </IconContext.Provider>
           </div>
           <a
             href={`/job/${job.id}`}
