@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import JobListing from "./JobListing";
+import Spinner from "./Spinner";
 import { job } from "../model/job";
 
 interface JobListingsProp {
@@ -35,17 +36,15 @@ const JobListings: React.FC<JobListingsProp> = ({ isHome }) => {
         <h2 className="mb-6 text-3xl font-bold text-center text-indigo-500">
           {isHome ? "Recent Jobs" : "Browse Jobs"}
         </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {loading ? (
-            <h2>Loading...</h2>
-          ) : (
-            <>
-              {jobs.map((job) => (
-                <JobListing key={job.id} job={job} />
-              ))}
-            </>
-          )}
-        </div>
+        {loading ? (
+          <Spinner loading={loading} />
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {jobs.map((job) => (
+              <JobListing key={job.id} job={job} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
