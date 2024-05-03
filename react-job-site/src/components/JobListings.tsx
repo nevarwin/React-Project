@@ -17,8 +17,10 @@ const JobListings: React.FC<JobListingsProp> = ({ isHome }) => {
   // getting the data from the jobs.json file
   useEffect(() => {
     const fetchJobs = async () => {
+      const apiUrl = isHome ? "/api/jobs?_limit=3" : "/api/jobs";
+
       try {
-        const res = await fetch("http://localhost:3000/jobs");
+        const res = await fetch(apiUrl);
         const data = await res.json();
         setJobs(data);
       } catch (error) {
@@ -28,7 +30,7 @@ const JobListings: React.FC<JobListingsProp> = ({ isHome }) => {
       }
     };
     fetchJobs();
-  }, []);
+  });
 
   return (
     <section className="px-4 py-10 bg-blue-50">
