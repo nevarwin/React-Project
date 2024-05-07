@@ -2,19 +2,40 @@ import { useState } from "react";
 
 const AddJobPage = () => {
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [salary, setSalary] = useState("");
+  const [salary, setSalary] = useState("Under $50K");
   const [companyName, setCompanyName] = useState("");
   const [companyDescription, setCompanyDescription] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+
+  const submitForm = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newJob = {
+      title,
+      type,
+      location,
+      description,
+      salary,
+      company: {
+        name: companyName,
+        description: companyDescription,
+        contactEmail,
+        contactPhone,
+      },
+    };
+
+    console.log(newJob);
+  };
+
   return (
     <section className="bg-indigo-50">
       <div className="container max-w-2xl py-24 m-auto">
         <div className="px-6 py-8 m-4 mb-4 bg-white border rounded-md shadow-md md:m-0">
-          <form>
+          <form onSubmit={submitForm}>
             <h2 className="mb-6 text-3xl font-semibold text-center">Add Job</h2>
 
             <div className="mb-4">
