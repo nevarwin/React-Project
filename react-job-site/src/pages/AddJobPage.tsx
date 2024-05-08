@@ -1,6 +1,14 @@
 import { useState } from "react";
+import { job } from "../model/job";
+import { useNavigate } from "react-router-dom";
 
-const AddJobPage = () => {
+interface AddJobPageProps {
+  addJobSubmit: (job: job) => void;
+}
+
+const AddJobPage = ({ addJobSubmit }: AddJobPageProps) => {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -15,6 +23,7 @@ const AddJobPage = () => {
     e.preventDefault();
 
     const newJob = {
+      id: Math.random().toString(36).substr(2, 9),
       title,
       type,
       location,
@@ -28,7 +37,10 @@ const AddJobPage = () => {
       },
     };
 
-    console.log(newJob);
+    addJobSubmit(newJob);
+
+    // Redirect to the jobs page
+    return navigate("/jobs");
   };
 
   return (
