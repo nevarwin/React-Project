@@ -17,7 +17,7 @@ import { job } from "./model/job";
 
 function App() {
   const addJob = async (newJob: job) => {
-    await fetch("api/jobs", {
+    await fetch("/api/jobs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
