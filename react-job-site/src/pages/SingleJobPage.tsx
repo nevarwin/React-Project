@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import { useParams, useLoaderData } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { job } from "../model/job";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaLocationArrow } from "react-icons/fa";
 
-const SingleJobPage = () => {
+interface SingleJobPageProps {
+  deleteJob: (id: string) => void;
+}
+
+const SingleJobPage = ({ deleteJob }: SingleJobPageProps) => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // using the useLoaderData hook
   // const job = useLoaderData();
@@ -31,6 +36,19 @@ const SingleJobPage = () => {
 
     fetchSingleJob();
   });
+
+  const deleteJobClick = (jobId: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this job?"
+    );
+
+    if (!confirmDelete) return;
+
+    deleteJob(jobId);
+
+    // Redirect to the jobs page
+    navigate("/jobs");
+  };
 
   return (
     <>
@@ -112,7 +130,10 @@ const SingleJobPage = () => {
                     >
                       Edit Job
                     </a>
-                    <button className="block w-full px-4 py-2 mt-4 font-bold text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:shadow-outline">
+                    <button
+                      onClick={() => deleteJobClick(job.id)}
+                      className="block w-full px-4 py-2 mt-4 font-bold text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:shadow-outline"
+                    >
                       Delete Job
                     </button>
                   </div>
