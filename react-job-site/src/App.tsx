@@ -28,9 +28,8 @@ function App() {
   };
 
   const deleteJob = async (id: string) => {
-    console.log(id);
     try {
-      await fetch(`api/jobs/${id}`, {
+      await fetch(`/api/jobs/${id}`, {
         method: "DELETE",
       });
     } catch (error) {
