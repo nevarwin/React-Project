@@ -11,9 +11,10 @@ import MainLayout from "./layouts/MainLayout";
 import JobPage from "./pages/JobPage";
 import NotFound from "./pages/NotFound";
 import SingleJobPage from "./pages/SingleJobPage";
+import DataLoader from "./components/DataLoader";
 import AddJobPage from "./pages/AddJobPage";
 import { job } from "./model/job";
-// import SingleJobPage, { jobLoader } from "./pages/SingleJobPage";
+import EditJobPage from "./pages/EditJobPage";
 
 function App() {
   const addJob = async (newJob: job) => {
@@ -44,12 +45,17 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/jobs" element={<JobPage />} />
+        <Route path="/add-job" element={<AddJobPage addJobSubmit={addJob} />} />
         <Route
           path="/jobs/:id"
           element={<SingleJobPage deleteJob={deleteJob} />}
+          loader={DataLoader}
         />
-        <Route path="/add-job" element={<AddJobPage addJobSubmit={addJob} />} />
-        {/* <Route path="/jobs/:id" element={<SingleJobPage />} loader={jobLoader} /> */}
+        <Route
+          path="/edit-job/:id"
+          element={<EditJobPage />}
+          loader={DataLoader}
+        />
         <Route path="*" element={<NotFound />} />
       </Route>
     )
