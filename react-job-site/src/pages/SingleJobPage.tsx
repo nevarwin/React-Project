@@ -5,6 +5,7 @@ import Spinner from "../components/Spinner";
 import { job } from "../model/job";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaLocationArrow } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface SingleJobPageProps {
   deleteJob: (id: string) => void;
@@ -45,6 +46,9 @@ const SingleJobPage = ({ deleteJob }: SingleJobPageProps) => {
     if (!confirmDelete) return;
 
     deleteJob(jobId);
+
+    // Show a success message
+    toast.success("Job removed successfully!");
 
     // Redirect to the jobs page
     navigate("/jobs");
